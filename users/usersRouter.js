@@ -1,18 +1,18 @@
 
-const express = require('express');
+// const express = require('express');
 
-const Users = require('../users/usersModel.js');
-const protected = require('../middleware/protected');
+// const Users = require('../users/usersModel.js');
+// const protected = require('../middleware/protected');
 
-const router = express.Router();
+// const router = express.Router();
 
-router.get('/', protected, (req, res) => {
-    Users.find()
-      .then(users => {
-        res.json(users);
-      })
-      .catch(err => res.send(err));
-});
+// router.get('/', protected, (req, res) => {
+//     Users.find()
+//       .then(users => {
+//         res.json(users);
+//       })
+//       .catch(err => res.send(err));
+// });
 
 // function protected(req, res, next) {
 //   let { username, password } = req.headers;
@@ -35,4 +35,4 @@ router.get('/', protected, (req, res) => {
 //   }
 // }
 
-module.exports = router;
+// module.exports = router;
