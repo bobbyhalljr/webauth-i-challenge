@@ -1,24 +1,28 @@
-// const express = require('express');
-// const helmet = require('helmet');
-// const cors = require('cors');
+// require packages
+const express = require('express');
+const helmet = require('helmet');
+const cors = require('cors');
 
-// const usersRouter = require('./users/usersRouter');
-// const authRouter = require('./auth/authRouter');
-// const protected = require('./middleware/protected');
+// require imports
+const usersRouter = require('./users/usersRouter');
+const authRouter = require('./auth/authRouter');
 
-// const server = express();
+// setup express server
+const server = express();
 
-// server.use(helmet());
-// server.use(express.json());
-// server.use(cors());
-// server.use(protected);
+// setup middleware
+server.use(helmet());
+server.use(express.json());
+server.use(cors());
 
-// server.use('/api/', authRouter)
-// // server.use('/api/login', authRouter)
-// server.use('/api/users', usersRouter);
+// setup server routes
+server.use('/api', authRouter)
+server.use('/api/users', usersRouter);
 
-// server.get('/', (req, res) => {
-//     res.send("It's alive!");
-//   });
+// default server route
+server.get('/', (req, res) => {
+    res.send("It's alive!");
+  });
 
-// module.exports = server;
+// export server
+module.exports = server;
