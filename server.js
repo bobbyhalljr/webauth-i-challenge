@@ -19,7 +19,7 @@ server.use(cors());
 server.use('/api', authRouter)
 server.use('/api/users', usersRouter);
 
-// default server route
+// default (root) server route
 server.get('/', (req, res) => {
     res.send("It's alive!");
   });
