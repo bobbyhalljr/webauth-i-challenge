@@ -16,7 +16,7 @@ function App(props) {
       
       <Route exact path='/api/register' component={SignIn} />
       <Route exact path='/api/login' component={SignIn} />
-      <PrivateRoute exact path='/api/users' render={props => <Users />} />
+      <Route exact path='/api/users' render={props => <Users />} />
     </div>
   );
 }

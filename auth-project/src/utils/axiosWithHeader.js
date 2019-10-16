@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const axiosWithAuth = () => {
+export const axiosWithHeader = () => {
   
     return axios.create({
       baseURL: "https://web-auth-project-1.herokuapp.com/api",

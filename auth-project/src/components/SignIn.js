@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { axiosWithHeader } from '../utils/axiosWithHeader';
+import axios from 'axios';
 
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -63,12 +63,35 @@ export default function SignIn(props) {
     }
   })
 
+  const register = e => {
+    e.preventDefault();
+    axios
+    .post("/register", user.credentials)
+      .then(res => {
+        console.log(user.credentials)
+        props.history.go("/register");
+      })
+      .catch(err => console.log(err));
+  };
+
   const login = e => {
     e.preventDefault();
-    axiosWithAuth()
-      .post("/login", user.credentials)
+    axios
+    .post("/login", user.credentials)
       .then(res => {
-        props.history.push("/api/users");
+        console.log(user.credentials)
+        props.history.push("/login");
+      })
+      .catch(err => console.log(err));
+  };
+
+  const logout = e => {
+    e.preventDefault();
+    axios
+    .get("/logout")
+      .then(res => {
+        console.log(user.credentials)
+        props.history.push("/login");
       })
       .catch(err => console.log(err));
   };
@@ -94,7 +117,7 @@ export default function SignIn(props) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form onSubmit={login} className={classes.form} noValidate>
+        <form onSubmit={user.credentials ? login : register} className={classes.form} noValidate>
           <TextField
             value={user.credentials.username}
             onChange={handleChange}
@@ -151,6 +174,11 @@ export default function SignIn(props) {
       <Box mt={8}>
         <Copyright />
       </Box>
+      <Button 
+        onClick={logout}
+        variant="contained"
+        color="primary"
+        > Sign Out</Button>
     </Container>
   );
 }
