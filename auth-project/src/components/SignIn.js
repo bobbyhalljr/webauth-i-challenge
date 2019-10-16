@@ -1,4 +1,6 @@
-import React, { usestate, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -51,7 +53,32 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignIn() {
+export default function SignIn(props) {
+  const [user, setUser] = useState({
+    credentials: {
+      username: '',
+      password: ''
+    }
+  })
+
+  const login = e => {
+    e.preventDefault();
+    axios
+      .post("/api/login", user.credentials)
+      .then(res => {
+        props.history.push("/api/users");
+      })
+      .catch(err => console.log(err));
+  };
+
+  const handleChange = e => {
+    setUser({
+      credentials: {
+        ...user.credentials,
+        [e.target.name]: e.target.value
+      }
+    });
+  };
 
   const classes = useStyles();
 
@@ -65,19 +92,23 @@ export default function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form onSubmit={login} className={classes.form} noValidate>
           <TextField
+            value={user.credentials.username}
+            onChange={handleChange}
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="User Name"
+            name="username"
+            autoComplete="text"
             autoFocus
           />
           <TextField
+            value={user.credentials.password}
+            onChange={handleChange}
             variant="outlined"
             margin="normal"
             required

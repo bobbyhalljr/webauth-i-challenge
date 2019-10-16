@@ -4,18 +4,19 @@ import { Route } from 'react-router-dom';
 
 import SignIn from './components/SignIn';
 import Users from './components/Users';
+import PrivateRoute from './components/PrivateRoute';
 
 
-function App() {
+function App(props) {
   return (
     <div>
       <div className="App">
         {/* <SignIn /> */}
       </div>
       
-      <Route component={SignIn} />
-      <Route path='/login' component={SignIn} />
-      <Route path='/users' component={Users} />
+      <Route exact path='/api/register' component={SignIn} />
+      <Route exact path='/api/login' component={SignIn} />
+      <PrivateRoute exact path='/api/users' render={props => <Users />} />
     </div>
   );
 }
