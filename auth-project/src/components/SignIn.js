@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+import { axiosWithAuth } from '../utils/axiosWithAuth';
+
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -63,8 +65,8 @@ export default function SignIn(props) {
 
   const login = e => {
     e.preventDefault();
-    axios
-      .post("/api/login", user.credentials)
+    axiosWithAuth()
+      .post("/login", user.credentials)
       .then(res => {
         props.history.push("/api/users");
       })

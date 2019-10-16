@@ -14,7 +14,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       <Route
         {...rest}
         render={props => {
-          if (user.credentials.username && user.credentials.password) {
+          if (user.credentials) {
             return <Component {...props} />;
           } else {
             return <Redirect to="/api/login" />;
